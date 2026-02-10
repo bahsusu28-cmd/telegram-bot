@@ -18,6 +18,7 @@ BOT_TOKEN = '7749933756:AAFf4pLJX0Kll80CbvUb8yzmg9yofxH_2XU'
 CHANNEL_USERNAME = '@verised'
 API_URL = f'https://api.telegram.org/bot{BOT_TOKEN}'
 MENU_PHOTO = 'menu_photo.jpg'
+WEBAPP_URL = 'https://telegram-bot-five-indol-50.vercel.app'
 
 # Инициализация базы данных
 def init_db():
@@ -322,6 +323,7 @@ def get_subscription_keyboard(user_id):
 def get_main_menu_keyboard(user_id):
     return {
         'inline_keyboard': [
+            [{'text': '🚀 Открыть приложение', 'web_app': {'url': WEBAPP_URL}}],
             [{'text': t(user_id, 'language'), 'callback_data': 'language'}],
             [{'text': t(user_id, 'settings'), 'callback_data': 'settings'}],
             [{'text': t(user_id, 'support'), 'callback_data': 'support'}],
