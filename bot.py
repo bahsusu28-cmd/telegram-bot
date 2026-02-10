@@ -378,20 +378,10 @@ def check_subscription(user_id):
             else:
                 error_desc = result.get('description', 'Unknown')
                 print(f"   Ошибка API: {error_desc}")
-                
-                # Если ошибка доступа - значит бот не админ канала
-                if 'inaccessible' in error_desc or 'not found' in error_desc:
-                    print(f"   ⚠️ ВНИМАНИЕ: Бот не является администратором канала!")
-                    print(f"   ⚠️ Добавьте бота @{bot_info.get('username', 'unknown')} в канал {CHANNEL_USERNAME} как администратора")
-                    # Временно пропускаем всех, пока не настроен канал
-                    return True
         else:
             print(f"   HTTP ошибка: {response.text}")
-            # Временно пропускаем, если не можем проверить
-            return True
     except Exception as e:
         print(f"   Исключение при проверке: {e}")
-        return True
     
     return False
 
