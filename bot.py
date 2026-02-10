@@ -127,7 +127,8 @@ TRANSLATIONS = {
         'phone': '📱 Телефон',
         'total_users': '👥 Всего пользователей',
         'not_specified': 'Не указано',
-        'phone_shared': '✅ Номер телефона сохранен!'
+        'phone_shared': '✅ Номер телефона сохранен!',
+        'support_text': '💬 Поддержка\n\nПо всем вопросам обращайтесь:\n👤 @wfiger\n\nМы ответим в ближайшее время!'
     },
     'en': {
         'welcome': '✅ Welcome to the main menu!',
