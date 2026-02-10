@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+venv/
+env/
+.venv/
+bot_users.db
+menu_photo.jpg
+.env.local
