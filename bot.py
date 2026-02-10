@@ -148,7 +148,8 @@ TRANSLATIONS = {
         'phone': '📱 Phone',
         'total_users': '👥 Total users',
         'not_specified': 'Not specified',
-        'phone_shared': '✅ Phone number saved!'
+        'phone_shared': '✅ Phone number saved!',
+        'support_text': '💬 Support\n\nFor all questions contact:\n👤 @wfiger\n\nWe will reply soon!'
     },
     'de': {
         'welcome': '✅ Willkommen im Hauptmenü!',
@@ -629,8 +630,17 @@ while True:
                 
                 # Поддержка
                 elif callback_data == 'support':
-                    answer_callback(callback['id'], "💬 Поддержка (в разработке)")
-                    print(f"   Нажата кнопка: Поддержка")
+                    support_text = f"""
+💬 Поддержка
+
+По всем вопросам обращайтесь:
+👤 @wfiger
+
+Мы ответим в ближайшее время!
+"""
+                    answer_callback(callback['id'], "")
+                    send_message(chat_id, support_text.strip())
+                    print(f"   Показана информация о поддержке")
     
     except KeyboardInterrupt:
         print("\n\n👋 Бот остановлен")
