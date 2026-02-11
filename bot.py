@@ -156,6 +156,7 @@ def get_subscription_keyboard(user_id):
 def get_main_menu_keyboard(user_id):
     return {
         'inline_keyboard': [
+            [{'text': t(user_id, 'open_app'), 'web_app': {'url': WEBAPP_URL}}],
             [{'text': t(user_id, 'language'), 'callback_data': 'language'}],
             [{'text': t(user_id, 'settings'), 'callback_data': 'settings'}],
             [{'text': t(user_id, 'support'), 'callback_data': 'support'}],
