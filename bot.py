@@ -184,7 +184,7 @@ def get_phone_request_keyboard(user_id):
     }
 
 # Клавиатура выбора языка (по 2 кнопки в ряд)
-def get_language_keyboard():
+def get_language_keyboard(user_id):
     keyboard = []
     for i in range(0, len(LANGUAGES), 2):
         row = []
@@ -192,7 +192,7 @@ def get_language_keyboard():
         if i + 1 < len(LANGUAGES):
             row.append({'text': LANGUAGES[i+1][1], 'callback_data': f'lang_{LANGUAGES[i+1][0]}'})
         keyboard.append(row)
-    keyboard.append([{'text': '◀️ Назад', 'callback_data': 'back_to_menu'}])
+    keyboard.append([{'text': t(user_id, 'back'), 'callback_data': 'back_to_menu'}])
     return {'inline_keyboard': keyboard}
 
 # Проверка подписки
@@ -381,7 +381,7 @@ while True:
                     send_message(
                         chat_id,
                         t(user_id, 'select_language'),
-                        get_language_keyboard()
+                        get_language_keyboard(user_id)
                     )
                     answer_callback(callback['id'], "")
                     print(f"   Открыто меню выбора языка")
