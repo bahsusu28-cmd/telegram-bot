@@ -6,6 +6,7 @@ import sys
 import signal
 from datetime import datetime
 import sqlite3
+from translations import TRANSLATIONS
 
 # Обработчик Ctrl+C
 def signal_handler(sig, frame):
@@ -107,184 +108,16 @@ except Exception as e:
     print("\n🔧 Включите VPN и попробуйте снова!")
     exit()
 
-# Словарь переводов
-TRANSLATIONS = {
-    'ru': {
-        'welcome': '✅ Добро пожаловать в главное меню!',
-        'subscribe_required': '👋 Привет! Для использования бота необходимо подписаться на наш канал.\n\nПосле подписки нажмите кнопку "Проверить подписку".',
-        'language': '🌍 Язык',
-        'settings': '⚙️ Настройки',
-        'support': '💬 Поддержка',
-        'channel': '📢 Канал',
-        'subscribe': '📢 Подписаться на канал',
-        'check': '✅ Проверить подписку',
-        'select_language': '🌍 Выберите язык:',
-        'back': '◀️ Назад',
-        'my_profile': '👤 Мой профиль',
-        'share_phone': '📱 Поделиться номером',
-        'user_id': '🆔 ID',
-        'username': '👤 Username',
-        'registration_date': '📅 Дата регистрации',
-        'phone': '📱 Телефон',
-        'total_users': '👥 Всего пользователей',
-        'not_specified': 'Не указано',
-        'phone_shared': '✅ Номер телефона сохранен!',
-        'support_text': '💬 Поддержка\n\nПо всем вопросам обращайтесь:\n👤 @wfiger\n\nМы ответим в ближайшее время!'
-    },
-    'en': {
-        'welcome': '✅ Welcome to the main menu!',
-        'subscribe_required': '👋 Hello! To use the bot, you need to subscribe to our channel.\n\nAfter subscribing, click the "Check subscription" button.',
-        'language': '🌍 Language',
-        'settings': '⚙️ Settings',
-        'support': '💬 Support',
-        'channel': '📢 Channel',
-        'subscribe': '📢 Subscribe to channel',
-        'check': '✅ Check subscription',
-        'select_language': '🌍 Select language:',
-        'back': '◀️ Back',
-        'my_profile': '👤 My profile',
-        'share_phone': '📱 Share phone',
-        'user_id': '🆔 ID',
-        'username': '👤 Username',
-        'registration_date': '📅 Registration date',
-        'phone': '📱 Phone',
-        'total_users': '👥 Total users',
-        'not_specified': 'Not specified',
-        'phone_shared': '✅ Phone number saved!',
-        'support_text': '💬 Support\n\nFor all questions contact:\n👤 @wfiger\n\nWe will reply soon!'
-    },
-    'de': {
-        'welcome': '✅ Willkommen im Hauptmenü!',
-        'subscribe_required': '👋 Hallo! Um den Bot zu nutzen, müssen Sie unseren Kanal abonnieren.\n\nKlicken Sie nach dem Abonnieren auf die Schaltfläche "Abonnement prüfen".',
-        'language': '🌍 Sprache',
-        'settings': '⚙️ Einstellungen',
-        'support': '💬 Support',
-        'channel': '📢 Kanal',
-        'subscribe': '📢 Kanal abonnieren',
-        'check': '✅ Abonnement prüfen',
-        'select_language': '🌍 Sprache wählen:',
-        'back': '◀️ Zurück'
-    },
-    'es': {
-        'welcome': '✅ ¡Bienvenido al menú principal!',
-        'subscribe_required': '👋 ¡Hola! Para usar el bot, debes suscribirte a nuestro canal.\n\nDespués de suscribirte, haz clic en el botón "Verificar suscripción".',
-        'language': '🌍 Idioma',
-        'settings': '⚙️ Configuración',
-        'support': '💬 Soporte',
-        'channel': '📢 Canal',
-        'subscribe': '📢 Suscribirse al canal',
-        'check': '✅ Verificar suscripción',
-        'select_language': '🌍 Seleccionar idioma:',
-        'back': '◀️ Atrás'
-    },
-    'fr': {
-        'welcome': '✅ Bienvenue dans le menu principal!',
-        'subscribe_required': '👋 Bonjour! Pour utiliser le bot, vous devez vous abonner à notre chaîne.\n\nAprès vous être abonné, cliquez sur le bouton "Vérifier l\'abonnement".',
-        'language': '🌍 Langue',
-        'settings': '⚙️ Paramètres',
-        'support': '💬 Support',
-        'channel': '📢 Chaîne',
-        'subscribe': '📢 S\'abonner à la chaîne',
-        'check': '✅ Vérifier l\'abonnement',
-        'select_language': '🌍 Sélectionner la langue:',
-        'back': '◀️ Retour'
-    },
-    'zh': {
-        'welcome': '✅ 欢迎来到主菜单！',
-        'subscribe_required': '👋 你好！要使用机器人，您需要订阅我们的频道。\n\n订阅后，点击"检查订阅"按钮。',
-        'language': '🌍 语言',
-        'settings': '⚙️ 设置',
-        'support': '💬 支持',
-        'channel': '📢 频道',
-        'subscribe': '📢 订阅频道',
-        'check': '✅ 检查订阅',
-        'select_language': '🌍 选择语言：',
-        'back': '◀️ 返回'
-    },
-    'ar': {
-        'welcome': '✅ مرحبا بك في القائمة الرئيسية!',
-        'subscribe_required': '👋 مرحبا! لاستخدام البوت، تحتاج إلى الاشتراك في قناتنا.\n\nبعد الاشتراك، انقر على زر "التحقق من الاشتراك".',
-        'language': '🌍 اللغة',
-        'settings': '⚙️ الإعدادات',
-        'support': '💬 الدعم',
-        'channel': '📢 القناة',
-        'subscribe': '📢 الاشتراك في القناة',
-        'check': '✅ التحقق من الاشتراك',
-        'select_language': '🌍 اختر اللغة:',
-        'back': '◀️ رجوع'
-    },
-    'tr': {
-        'welcome': '✅ Ana menüye hoş geldiniz!',
-        'subscribe_required': '👋 Merhaba! Botu kullanmak için kanalımıza abone olmanız gerekiyor.\n\nAbone olduktan sonra "Aboneliği kontrol et" düğmesine tıklayın.',
-        'language': '🌍 Dil',
-        'settings': '⚙️ Ayarlar',
-        'support': '💬 Destek',
-        'channel': '📢 Kanal',
-        'subscribe': '📢 Kanala abone ol',
-        'check': '✅ Aboneliği kontrol et',
-        'select_language': '🌍 Dil seçin:',
-        'back': '◀️ Geri'
-    },
-    'uk': {
-        'welcome': '✅ Ласкаво просимо до головного меню!',
-        'subscribe_required': '👋 Привіт! Щоб використовувати бота, вам потрібно підписатися на наш канал.\n\nПісля підписки натисніть кнопку "Перевірити підписку".',
-        'language': '🌍 Мова',
-        'settings': '⚙️ Налаштування',
-        'support': '💬 Підтримка',
-        'channel': '📢 Канал',
-        'subscribe': '📢 Підписатися на канал',
-        'check': '✅ Перевірити підписку',
-        'select_language': '🌍 Виберіть мову:',
-        'back': '◀️ Назад'
-    }
-}
+# TRANSLATIONS imported from translations.py at the top
 
-# Список всех языков в алфавитном порядке
+# Список основных языков
 LANGUAGES = [
-    ('ar', '🇸🇦 العربية'),
-    ('az', '🇦🇿 Azərbaycan'),
-    ('be', '🇧🇾 Беларуская'),
-    ('bg', '🇧🇬 Български'),
-    ('bn', '🇧🇩 বাংলা'),
-    ('cs', '🇨🇿 Čeština'),
-    ('da', '🇩🇰 Dansk'),
-    ('de', '🇩🇪 Deutsch'),
-    ('el', '🇬🇷 Ελληνικά'),
-    ('en', '🇬🇧 English'),
-    ('es', '🇪🇸 Español'),
-    ('et', '🇪🇪 Eesti'),
-    ('fa', '🇮🇷 فارسی'),
-    ('fi', '🇫🇮 Suomi'),
-    ('fr', '🇫🇷 Français'),
-    ('he', '🇮🇱 עברית'),
-    ('hi', '🇮🇳 हिन्दी'),
-    ('hr', '🇭🇷 Hrvatski'),
-    ('hu', '🇭🇺 Magyar'),
-    ('id', '🇮🇩 Indonesia'),
-    ('it', '🇮🇹 Italiano'),
-    ('ja', '🇯🇵 日本語'),
-    ('ka', '🇬🇪 ქართული'),
-    ('kk', '🇰🇿 Қазақша'),
-    ('ko', '🇰🇷 한국어'),
-    ('lt', '🇱🇹 Lietuvių'),
-    ('lv', '🇱🇻 Latviešu'),
-    ('nl', '🇳🇱 Nederlands'),
-    ('no', '🇳🇴 Norsk'),
-    ('pl', '🇵🇱 Polski'),
-    ('pt', '🇵🇹 Português'),
-    ('ro', '🇷🇴 Română'),
-    ('ru', '🇷🇺 Русский'),
-    ('sk', '🇸🇰 Slovenčina'),
-    ('sl', '🇸🇮 Slovenščina'),
-    ('sr', '🇷🇸 Српски'),
-    ('sv', '🇸🇪 Svenska'),
-    ('th', '🇹🇭 ไทย'),
-    ('tr', '🇹🇷 Türkçe'),
-    ('uk', '🇺🇦 Українська'),
-    ('ur', '🇵🇰 اردو'),
-    ('uz', '🇺🇿 Oʻzbekcha'),
-    ('vi', '🇻🇳 Tiếng Việt'),
-    ('zh', '🇨🇳 中文')
+    ('en', ' English'),
+    ('ru', ' Русский'),
+    ('de', ' Deutsch'),
+    ('es', ' Español'),
+    ('fr', ' Français'),
+    ('zh', ' 中文')
 ]
 
 # Хранилище языков пользователей (в памяти для быстрого доступа)
@@ -323,11 +156,11 @@ def get_subscription_keyboard(user_id):
 def get_main_menu_keyboard(user_id):
     return {
         'inline_keyboard': [
-            [{'text': '🏴 Язык', 'callback_data': 'language'}],
-            [{'text': '⚙️ Настройки', 'callback_data': 'settings'}],
-            [{'text': '💬 Поддержка', 'callback_data': 'support'}],
-            [{'text': '📢 Канал', 'url': 'https://t.me/verised'}],
-            [{'text': '🔒 Лицензионное соглашение', 'callback_data': 'license'}]
+            [{'text': t(user_id, 'language'), 'callback_data': 'language'}],
+            [{'text': t(user_id, 'settings'), 'callback_data': 'settings'}],
+            [{'text': t(user_id, 'support'), 'callback_data': 'support'}],
+            [{'text': t(user_id, 'channel'), 'url': 'https://t.me/verised'}],
+            [{'text': t(user_id, 'license'), 'callback_data': 'license'}]
         ]
     }
 
@@ -633,53 +466,14 @@ while True:
                 
                 # Лицензионное соглашение
                 elif callback_data == 'license':
-                    license_text = """
-🔒 ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ
-
-Настоящее Лицензионное соглашение (далее - "Соглашение") регулирует использование Telegram-бота и связанных с ним сервисов (далее - "Сервис").
-
-1. ОБЩИЕ ПОЛОЖЕНИЯ
-1.1. Используя данный Сервис, вы соглашаетесь с условиями настоящего Соглашения.
-1.2. Если вы не согласны с условиями Соглашения, пожалуйста, прекратите использование Сервиса.
-1.3. Администрация оставляет за собой право изменять условия Соглашения в любое время без предварительного уведомления.
-
-2. ИСПОЛЬЗОВАНИЕ СЕРВИСА
-2.1. Сервис предоставляется на условиях "как есть".
-2.2. Пользователь обязуется использовать Сервис только в законных целях.
-2.3. Запрещается использование Сервиса для распространения незаконного контента, спама или вредоносного ПО.
-
-3. КОНФИДЕНЦИАЛЬНОСТЬ
-3.1. Мы собираем минимально необходимую информацию для работы Сервиса.
-3.2. Ваши данные не передаются третьим лицам без вашего согласия.
-3.3. Мы используем данные только для улучшения качества Сервиса.
-
-4. ОТВЕТСТВЕННОСТЬ
-4.1. Администрация не несет ответственности за любые прямые или косвенные убытки, возникшие в результате использования Сервиса.
-4.2. Пользователь несет полную ответственность за свои действия в Сервисе.
-
-5. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ
-5.1. Настоящее Соглашение вступает в силу с момента начала использования Сервиса.
-5.2. Все споры решаются путем переговоров.
-5.3. При возникновении вопросов обращайтесь в поддержку: @wfiger
-
-Дата последнего обновления: 11.02.2026
-"""
-                    send_message(chat_id, license_text.strip())
+                    send_message(chat_id, t(user_id, 'license_text'))
                     answer_callback(callback['id'], "")
                     print(f"   Показано лицензионное соглашение")
                 
                 # Поддержка
                 elif callback_data == 'support':
-                    support_text = f"""
-💬 Поддержка
-
-По всем вопросам обращайтесь:
-👤 @wfiger
-
-Мы ответим в ближайшее время!
-"""
+                    send_message(chat_id, t(user_id, 'support_text'))
                     answer_callback(callback['id'], "")
-                    send_message(chat_id, support_text.strip())
                     print(f"   Показана информация о поддержке")
     
     except KeyboardInterrupt:
