@@ -323,7 +323,6 @@ def get_subscription_keyboard(user_id):
 def get_main_menu_keyboard(user_id):
     return {
         'inline_keyboard': [
-            [{'text': '🚀 Открыть приложение', 'web_app': {'url': WEBAPP_URL}}],
             [{'text': '🏴 Язык', 'callback_data': 'language'}],
             [{'text': '⚙️ Настройки', 'callback_data': 'settings'}],
             [{'text': '💬 Поддержка', 'callback_data': 'support'}],
@@ -668,6 +667,9 @@ while True:
                     send_message(chat_id, license_text.strip())
                     answer_callback(callback['id'], "")
                     print(f"   Показано лицензионное соглашение")
+                
+                # Поддержка
+                elif callback_data == 'support':
                     support_text = f"""
 💬 Поддержка
 
