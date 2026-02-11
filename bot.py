@@ -112,11 +112,10 @@ TRANSLATIONS = {
     'ru': {
         'welcome': '✅ Добро пожаловать в главное меню!',
         'subscribe_required': '👋 Привет! Для использования бота необходимо подписаться на наш канал.\n\nПосле подписки нажмите кнопку "Проверить подписку".',
-        'language': '🏴 Язык',
+        'language': '🌍 Язык',
         'settings': '⚙️ Настройки',
         'support': '💬 Поддержка',
         'channel': '📢 Канал',
-        'license': '🔒 Лицензионное соглашение',
         'subscribe': '📢 Подписаться на канал',
         'check': '✅ Проверить подписку',
         'select_language': '🌍 Выберите язык:',
@@ -130,45 +129,15 @@ TRANSLATIONS = {
         'total_users': '👥 Всего пользователей',
         'not_specified': 'Не указано',
         'phone_shared': '✅ Номер телефона сохранен!',
-        'support_text': '💬 Поддержка\n\nПо всем вопросам обращайтесь:\n👤 @wfiger\n\nМы ответим в ближайшее время!',
-        'license_text': """🔒 ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ
-
-Настоящее Лицензионное соглашение (далее - "Соглашение") регулирует использование Telegram-бота и связанных с ним сервисов (далее - "Сервис").
-
-1. ОБЩИЕ ПОЛОЖЕНИЯ
-1.1. Используя данный Сервис, вы соглашаетесь с условиями настоящего Соглашения.
-1.2. Если вы не согласны с условиями Соглашения, пожалуйста, прекратите использование Сервиса.
-1.3. Администрация оставляет за собой право изменять условия Соглашения в любое время без предварительного уведомления.
-
-2. ИСПОЛЬЗОВАНИЕ СЕРВИСА
-2.1. Сервис предоставляется на условиях "как есть".
-2.2. Пользователь обязуется использовать Сервис только в законных целях.
-2.3. Запрещается использование Сервиса для распространения незаконного контента, спама или вредоносного ПО.
-
-3. КОНФИДЕНЦИАЛЬНОСТЬ
-3.1. Мы собираем минимально необходимую информацию для работы Сервиса.
-3.2. Ваши данные не передаются третьим лицам без вашего согласия.
-3.3. Мы используем данные только для улучшения качества Сервиса.
-
-4. ОТВЕТСТВЕННОСТЬ
-4.1. Администрация не несет ответственности за любые прямые или косвенные убытки, возникшие в результате использования Сервиса.
-4.2. Пользователь несет полную ответственность за свои действия в Сервисе.
-
-5. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ
-5.1. Настоящее Соглашение вступает в силу с момента начала использования Сервиса.
-5.2. Все споры решаются путем переговоров.
-5.3. При возникновении вопросов обращайтесь в поддержку: @wfiger
-
-Дата последнего обновления: 11.02.2026"""
+        'support_text': '💬 Поддержка\n\nПо всем вопросам обращайтесь:\n👤 @wfiger\n\nМы ответим в ближайшее время!'
     },
     'en': {
         'welcome': '✅ Welcome to the main menu!',
         'subscribe_required': '👋 Hello! To use the bot, you need to subscribe to our channel.\n\nAfter subscribing, click the "Check subscription" button.',
-        'language': '🏴 Language',
+        'language': '🌍 Language',
         'settings': '⚙️ Settings',
         'support': '💬 Support',
         'channel': '📢 Channel',
-        'license': '🔒 License Agreement',
         'subscribe': '📢 Subscribe to channel',
         'check': '✅ Check subscription',
         'select_language': '🌍 Select language:',
@@ -182,36 +151,7 @@ TRANSLATIONS = {
         'total_users': '👥 Total users',
         'not_specified': 'Not specified',
         'phone_shared': '✅ Phone number saved!',
-        'support_text': '💬 Support\n\nFor all questions contact:\n👤 @wfiger\n\nWe will reply soon!',
-        'license_text': """🔒 LICENSE AGREEMENT
-
-This License Agreement (hereinafter - "Agreement") governs the use of the Telegram bot and related services (hereinafter - "Service").
-
-1. GENERAL PROVISIONS
-1.1. By using this Service, you agree to the terms of this Agreement.
-1.2. If you do not agree with the terms of the Agreement, please stop using the Service.
-1.3. The Administration reserves the right to change the terms of the Agreement at any time without prior notice.
-
-2. USE OF SERVICE
-2.1. The Service is provided on an "as is" basis.
-2.2. The User undertakes to use the Service only for lawful purposes.
-2.3. It is prohibited to use the Service to distribute illegal content, spam or malware.
-
-3. PRIVACY
-3.1. We collect the minimum necessary information for the Service to work.
-3.2. Your data is not transferred to third parties without your consent.
-3.3. We use data only to improve the quality of the Service.
-
-4. LIABILITY
-4.1. The Administration is not responsible for any direct or indirect losses arising from the use of the Service.
-4.2. The User bears full responsibility for their actions in the Service.
-
-5. FINAL PROVISIONS
-5.1. This Agreement comes into force from the moment you start using the Service.
-5.2. All disputes are resolved through negotiations.
-5.3. If you have any questions, please contact support: @wfiger
-
-Last updated: 11.02.2026"""
+        'support_text': '💬 Support\n\nFor all questions contact:\n👤 @wfiger\n\nWe will reply soon!'
     },
     'de': {
         'welcome': '✅ Willkommen im Hauptmenü!',
@@ -383,11 +323,11 @@ def get_subscription_keyboard(user_id):
 def get_main_menu_keyboard(user_id):
     return {
         'inline_keyboard': [
-            [{'text': t(user_id, 'language'), 'callback_data': 'language'}],
-            [{'text': t(user_id, 'settings'), 'callback_data': 'settings'}],
-            [{'text': t(user_id, 'support'), 'callback_data': 'support'}],
-            [{'text': t(user_id, 'channel'), 'url': 'https://t.me/verised'}],
-            [{'text': t(user_id, 'license'), 'callback_data': 'license'}]
+            [{'text': '🏴 Язык', 'callback_data': 'language'}],
+            [{'text': '⚙️ Настройки', 'callback_data': 'settings'}],
+            [{'text': '💬 Поддержка', 'callback_data': 'support'}],
+            [{'text': '📢 Канал', 'url': 'https://t.me/verised'}],
+            [{'text': '🔒 Лицензионное соглашение', 'callback_data': 'license'}]
         ]
     }
 
@@ -748,213 +688,3 @@ while True:
     except Exception as e:
         print(f"⚠️ Ошибка: {e}")
         time.sleep(5)
-
-    'de': {
-        'welcome': '✅ Willkommen im Hauptmenü!',
-        'subscribe_required': '👋 Hallo! Um den Bot zu nutzen, müssen Sie unseren Kanal abonnieren.\n\nKlicken Sie nach dem Abonnieren auf die Schaltfläche "Abonnement prüfen".',
-        'language': '🏴 Sprache',
-        'settings': '⚙️ Einstellungen',
-        'support': '💬 Support',
-        'channel': '📢 Kanal',
-        'license': '🔒 Lizenzvereinbarung',
-        'subscribe': '📢 Kanal abonnieren',
-        'check': '✅ Abonnement prüfen',
-        'select_language': '🌍 Sprache wählen:',
-        'back': '◀️ Zurück',
-        'my_profile': '👤 Mein Profil',
-        'share_phone': '📱 Telefon teilen',
-        'user_id': '🆔 ID',
-        'username': '👤 Benutzername',
-        'registration_date': '📅 Registrierungsdatum',
-        'phone': '📱 Telefon',
-        'total_users': '👥 Gesamtbenutzer',
-        'not_specified': 'Nicht angegeben',
-        'phone_shared': '✅ Telefonnummer gespeichert!',
-        'support_text': '💬 Support\n\nFür alle Fragen kontaktieren Sie:\n👤 @wfiger\n\nWir antworten bald!',
-        'license_text': """🔒 LIZENZVEREINBARUNG
-
-Diese Lizenzvereinbarung (im Folgenden - "Vereinbarung") regelt die Nutzung des Telegram-Bots und der damit verbundenen Dienste (im Folgenden - "Dienst").
-
-1. ALLGEMEINE BESTIMMUNGEN
-1.1. Durch die Nutzung dieses Dienstes stimmen Sie den Bedingungen dieser Vereinbarung zu.
-1.2. Wenn Sie mit den Bedingungen der Vereinbarung nicht einverstanden sind, beenden Sie bitte die Nutzung des Dienstes.
-1.3. Die Verwaltung behält sich das Recht vor, die Bedingungen der Vereinbarung jederzeit ohne vorherige Ankündigung zu ändern.
-
-2. NUTZUNG DES DIENSTES
-2.1. Der Dienst wird auf "wie besehen" Basis bereitgestellt.
-2.2. Der Benutzer verpflichtet sich, den Dienst nur für rechtmäßige Zwecke zu nutzen.
-2.3. Es ist verboten, den Dienst zur Verbreitung illegaler Inhalte, Spam oder Malware zu verwenden.
-
-3. DATENSCHUTZ
-3.1. Wir sammeln die minimal notwendigen Informationen für die Funktion des Dienstes.
-3.2. Ihre Daten werden nicht ohne Ihre Zustimmung an Dritte weitergegeben.
-3.3. Wir verwenden Daten nur zur Verbesserung der Servicequalität.
-
-4. HAFTUNG
-4.1. Die Verwaltung ist nicht verantwortlich für direkte oder indirekte Verluste, die aus der Nutzung des Dienstes entstehen.
-4.2. Der Benutzer trägt die volle Verantwortung für seine Handlungen im Dienst.
-
-5. SCHLUSSBESTIMMUNGEN
-5.1. Diese Vereinbarung tritt ab dem Zeitpunkt der Nutzung des Dienstes in Kraft.
-5.2. Alle Streitigkeiten werden durch Verhandlungen gelöst.
-5.3. Bei Fragen wenden Sie sich bitte an den Support: @wfiger
-
-Letzte Aktualisierung: 11.02.2026"""
-    },
-    'es': {
-        'welcome': '✅ ¡Bienvenido al menú principal!',
-        'subscribe_required': '👋 ¡Hola! Para usar el bot, debes suscribirte a nuestro canal.\n\nDespués de suscribirte, haz clic en el botón "Verificar suscripción".',
-        'language': '🏴 Idioma',
-        'settings': '⚙️ Configuración',
-        'support': '💬 Soporte',
-        'channel': '📢 Canal',
-        'license': '🔒 Acuerdo de licencia',
-        'subscribe': '📢 Suscribirse al canal',
-        'check': '✅ Verificar suscripción',
-        'select_language': '🌍 Seleccionar idioma:',
-        'back': '◀️ Atrás',
-        'my_profile': '👤 Mi perfil',
-        'share_phone': '📱 Compartir teléfono',
-        'user_id': '🆔 ID',
-        'username': '👤 Nombre de usuario',
-        'registration_date': '📅 Fecha de registro',
-        'phone': '📱 Teléfono',
-        'total_users': '👥 Total de usuarios',
-        'not_specified': 'No especificado',
-        'phone_shared': '✅ ¡Número de teléfono guardado!',
-        'support_text': '💬 Soporte\n\nPara todas las preguntas contacte:\n👤 @wfiger\n\n¡Responderemos pronto!',
-        'license_text': """🔒 ACUERDO DE LICENCIA
-
-Este Acuerdo de Licencia (en adelante - "Acuerdo") regula el uso del bot de Telegram y los servicios relacionados (en adelante - "Servicio").
-
-1. DISPOSICIONES GENERALES
-1.1. Al usar este Servicio, usted acepta los términos de este Acuerdo.
-1.2. Si no está de acuerdo con los términos del Acuerdo, deje de usar el Servicio.
-1.3. La Administración se reserva el derecho de cambiar los términos del Acuerdo en cualquier momento sin previo aviso.
-
-2. USO DEL SERVICIO
-2.1. El Servicio se proporciona "tal cual".
-2.2. El Usuario se compromete a usar el Servicio solo con fines legales.
-2.3. Está prohibido usar el Servicio para distribuir contenido ilegal, spam o malware.
-
-3. PRIVACIDAD
-3.1. Recopilamos la información mínima necesaria para que funcione el Servicio.
-3.2. Sus datos no se transfieren a terceros sin su consentimiento.
-3.3. Usamos los datos solo para mejorar la calidad del Servicio.
-
-4. RESPONSABILIDAD
-4.1. La Administración no es responsable de pérdidas directas o indirectas derivadas del uso del Servicio.
-4.2. El Usuario asume toda la responsabilidad por sus acciones en el Servicio.
-
-5. DISPOSICIONES FINALES
-5.1. Este Acuerdo entra en vigor desde el momento en que comienza a usar el Servicio.
-5.2. Todas las disputas se resuelven mediante negociaciones.
-5.3. Si tiene preguntas, contacte al soporte: @wfiger
-
-Última actualización: 11.02.2026"""
-    },
-    'fr': {
-        'welcome': '✅ Bienvenue dans le menu principal!',
-        'subscribe_required': '👋 Bonjour! Pour utiliser le bot, vous devez vous abonner à notre chaîne.\n\nAprès vous être abonné, cliquez sur le bouton "Vérifier l\'abonnement".',
-        'language': '🏴 Langue',
-        'settings': '⚙️ Paramètres',
-        'support': '💬 Support',
-        'channel': '📢 Chaîne',
-        'license': '🔒 Accord de licence',
-        'subscribe': '📢 S\'abonner à la chaîne',
-        'check': '✅ Vérifier l\'abonnement',
-        'select_language': '🌍 Sélectionner la langue:',
-        'back': '◀️ Retour',
-        'my_profile': '👤 Mon profil',
-        'share_phone': '📱 Partager le téléphone',
-        'user_id': '🆔 ID',
-        'username': '👤 Nom d\'utilisateur',
-        'registration_date': '📅 Date d\'inscription',
-        'phone': '📱 Téléphone',
-        'total_users': '👥 Total des utilisateurs',
-        'not_specified': 'Non spécifié',
-        'phone_shared': '✅ Numéro de téléphone enregistré!',
-        'support_text': '💬 Support\n\nPour toutes questions contactez:\n👤 @wfiger\n\nNous répondrons bientôt!',
-        'license_text': """🔒 ACCORD DE LICENCE
-
-Cet Accord de Licence (ci-après - "Accord") régit l'utilisation du bot Telegram et des services associés (ci-après - "Service").
-
-1. DISPOSITIONS GÉNÉRALES
-1.1. En utilisant ce Service, vous acceptez les termes de cet Accord.
-1.2. Si vous n'êtes pas d'accord avec les termes de l'Accord, veuillez cesser d'utiliser le Service.
-1.3. L'Administration se réserve le droit de modifier les termes de l'Accord à tout moment sans préavis.
-
-2. UTILISATION DU SERVICE
-2.1. Le Service est fourni "tel quel".
-2.2. L'Utilisateur s'engage à utiliser le Service uniquement à des fins légales.
-2.3. Il est interdit d'utiliser le Service pour distribuer du contenu illégal, du spam ou des logiciels malveillants.
-
-3. CONFIDENTIALITÉ
-3.1. Nous collectons les informations minimales nécessaires au fonctionnement du Service.
-3.2. Vos données ne sont pas transférées à des tiers sans votre consentement.
-3.3. Nous utilisons les données uniquement pour améliorer la qualité du Service.
-
-4. RESPONSABILITÉ
-4.1. L'Administration n'est pas responsable des pertes directes ou indirectes résultant de l'utilisation du Service.
-4.2. L'Utilisateur assume l'entière responsabilité de ses actions dans le Service.
-
-5. DISPOSITIONS FINALES
-5.1. Cet Accord entre en vigueur dès que vous commencez à utiliser le Service.
-5.2. Tous les litiges sont résolus par négociation.
-5.3. Pour toute question, contactez le support: @wfiger
-
-Dernière mise à jour: 11.02.2026"""
-    },
-    'zh': {
-        'welcome': '✅ 欢迎来到主菜单！',
-        'subscribe_required': '👋 你好！要使用机器人，您需要订阅我们的频道。\n\n订阅后，点击"检查订阅"按钮。',
-        'language': '🏴 语言',
-        'settings': '⚙️ 设置',
-        'support': '💬 支持',
-        'channel': '📢 频道',
-        'license': '🔒 许可协议',
-        'subscribe': '📢 订阅频道',
-        'check': '✅ 检查订阅',
-        'select_language': '🌍 选择语言：',
-        'back': '◀️ 返回',
-        'my_profile': '👤 我的资料',
-        'share_phone': '📱 分享电话',
-        'user_id': '🆔 ID',
-        'username': '👤 用户名',
-        'registration_date': '📅 注册日期',
-        'phone': '📱 电话',
-        'total_users': '👥 总用户数',
-        'not_specified': '未指定',
-        'phone_shared': '✅ 电话号码已保存！',
-        'support_text': '💬 支持\n\n如有任何问题请联系：\n👤 @wfiger\n\n我们会尽快回复！',
-        'license_text': """🔒 许可协议
-
-本许可协议（以下简称"协议"）规定了Telegram机器人及相关服务（以下简称"服务"）的使用。
-
-1. 一般规定
-1.1. 使用本服务即表示您同意本协议的条款。
-1.2. 如果您不同意协议条款，请停止使用服务。
-1.3. 管理部门保留随时更改协议条款的权利，恕不另行通知。
-
-2. 服务使用
-2.1. 服务按"原样"提供。
-2.2. 用户承诺仅将服务用于合法目的。
-2.3. 禁止使用服务传播非法内容、垃圾邮件或恶意软件。
-
-3. 隐私
-3.1. 我们收集服务运行所需的最少信息。
-3.2. 未经您同意，您的数据不会转移给第三方。
-3.3. 我们仅使用数据来提高服务质量。
-
-4. 责任
-4.1. 管理部门对因使用服务而产生的任何直接或间接损失不承担责任。
-4.2. 用户对其在服务中的行为承担全部责任。
-
-5. 最终规定
-5.1. 本协议自您开始使用服务之时起生效。
-5.2. 所有争议通过谈判解决。
-5.3. 如有疑问，请联系支持：@wfiger
-
-最后更新：11.02.2026"""
-    }
-}
