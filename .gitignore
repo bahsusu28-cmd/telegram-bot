@@ -6,5 +6,4 @@ venv/
 env/
 .venv/
 bot_users.db
-menu_photo.jpg
 .env.local
