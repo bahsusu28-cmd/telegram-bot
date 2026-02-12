@@ -156,7 +156,6 @@ def get_subscription_keyboard(user_id):
 def get_main_menu_keyboard(user_id):
     return {
         'inline_keyboard': [
-            [{'text': t(user_id, 'open_app'), 'web_app': {'url': WEBAPP_URL}}],
             [{'text': t(user_id, 'language'), 'callback_data': 'language'}],
             [{'text': t(user_id, 'settings'), 'callback_data': 'settings'}],
             [{'text': t(user_id, 'support'), 'callback_data': 'support'}],
@@ -259,6 +258,21 @@ def answer_callback(callback_id, text, show_alert=False):
         timeout=10
     )
 
+# Установка menu button (кнопка снизу)
+def set_menu_button(chat_id):
+    requests.post(
+        f'{API_URL}/setChatMenuButton',
+        json={
+            'chat_id': chat_id,
+            'menu_button': {
+                'type': 'web_app',
+                'text': 'Открыть',
+                'web_app': {'url': WEBAPP_URL}
+            }
+        },
+        timeout=10
+    )
+
 print("\n" + "="*60)
 print("🤖 БОТ ЗАПУЩЕН!")
 print(f"📢 Канал для проверки: {CHANNEL_USERNAME}")
@@ -328,6 +342,8 @@ while True:
                         )
                         print(f"   ❌ Не подписан")
                     else:
+                        # Устанавливаем menu button
+                        set_menu_button(chat_id)
                         # Отправляем главное меню с фото
                         send_photo(
                             chat_id,
@@ -358,6 +374,8 @@ while True:
                             json={'chat_id': chat_id, 'message_id': message_id},
                             timeout=10
                         )
+                        # Устанавливаем menu button
+                        set_menu_button(chat_id)
                         send_photo(
                             chat_id,
                             MENU_PHOTO,
@@ -398,6 +416,8 @@ while True:
                         json={'chat_id': chat_id, 'message_id': message_id},
                         timeout=10
                     )
+                    # Устанавливаем menu button
+                    set_menu_button(chat_id)
                     send_photo(
                         chat_id,
                         MENU_PHOTO,
@@ -414,6 +434,8 @@ while True:
                         json={'chat_id': chat_id, 'message_id': message_id},
                         timeout=10
                     )
+                    # Устанавливаем menu button
+                    set_menu_button(chat_id)
                     send_photo(
                         chat_id,
                         MENU_PHOTO,
