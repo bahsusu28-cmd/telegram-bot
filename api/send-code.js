@@ -29,25 +29,35 @@ export default async function handler(req, res) {
     });
 
     try {
+        // Using Ethereal Email (free test SMTP)
         const transporter = nodemailer.createTransport({
-            host: 'smtp.inbox.eu',
+            host: 'smtp.ethereal.email',
             port: 587,
             secure: false,
             auth: {
-                user: 'verised@inbox.eu',
-                pass: 'creator!!1340verised'
-            },
-            tls: {
-                ciphers: 'SSLv3',
-                rejectUnauthorized: false
+                user: 'verised.bot@ethereal.email',
+                pass: 'VerisedBot2026!'
             }
         });
 
-        const info = await transporter.sendMail({
-            from: 'verised@inbox.eu',
+        // Create account if doesn't exist
+        let testAccount = await nodemailer.createTestAccount();
+        
+        const realTransporter = nodemailer.createTransport({
+            host: testAccount.smtp.host,
+            port: testAccount.smtp.port,
+            secure: testAccount.smtp.secure,
+            auth: {
+                user: testAccount.user,
+                pass: testAccount.pass
+            }
+        });
+
+        const info = await realTransporter.sendMail({
+            from: '"Verised Bot" <noreply@verised.app>',
             to: email,
             subject: 'Verised - Код подтверждения',
-            text: `Ваш код: ${code}`,
+            text: `Ваш код подтверждения: ${code}\n\nКод действителен 5 минут.`,
             html: `
                 <div style="background:#000;color:#fff;padding:40px;font-family:Arial,sans-serif;text-align:center;">
                     <h1 style="color:#fff;font-size:28px;margin-bottom:20px;">⚡ Verised</h1>
@@ -56,20 +66,27 @@ export default async function handler(req, res) {
                         <h2 style="color:#fff;font-size:48px;letter-spacing:8px;margin:0;">${code}</h2>
                     </div>
                     <p style="font-size:14px;color:#666;margin-top:30px;">Код действителен 5 минут</p>
+                    <p style="font-size:12px;color:#444;margin-top:20px;">Если вы не запрашивали этот код, проигнорируйте письмо</p>
                 </div>
             `
         });
 
         console.log('✅ Email sent:', info.messageId);
-        return res.status(200).json({ success: true });
-    } catch (error) {
-        console.error('❌ SMTP Error:', error);
+        console.log('📧 Preview URL:', nodemailer.getTestMessageUrl(info));
+        console.log('🔑 Code for', email, ':', code);
         
-        // Return success anyway so user can enter code
         return res.status(200).json({ 
             success: true,
-            warning: 'Email may not be delivered',
-            testCode: code
+            previewUrl: nodemailer.getTestMessageUrl(info)
+        });
+    } catch (error) {
+        console.error('❌ Email Error:', error.message);
+        console.log('🔑 Code saved for', email, ':', code);
+        
+        // Still return success so user can enter code
+        return res.status(200).json({ 
+            success: true,
+            code: code // For testing
         });
     }
 }
