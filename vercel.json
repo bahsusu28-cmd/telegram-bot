@@ -1,6 +1,7 @@
 {
   "version": 2,
   "public": true,
+  "buildCommand": "echo 'Building v2.0'",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -14,6 +15,14 @@
         {
           "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
         }
       ]
     }
