@@ -29,37 +29,22 @@ export default async function handler(req, res) {
     });
 
     try {
-        // Using Ethereal Email (free test SMTP)
+        // Using Gmail SMTP
         const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
-            secure: false,
+            service: 'gmail',
             auth: {
-                user: 'verised.bot@ethereal.email',
-                pass: 'VerisedBot2026!'
+                user: 'verised.noreply@gmail.com',
+                pass: 'xqjp yzmt hqwk zrxb' // App password
             }
         });
 
-        // Create account if doesn't exist
-        let testAccount = await nodemailer.createTestAccount();
-        
-        const realTransporter = nodemailer.createTransport({
-            host: testAccount.smtp.host,
-            port: testAccount.smtp.port,
-            secure: testAccount.smtp.secure,
-            auth: {
-                user: testAccount.user,
-                pass: testAccount.pass
-            }
-        });
-
-        const info = await realTransporter.sendMail({
-            from: '"Verised Bot" <noreply@verised.app>',
+        await transporter.sendMail({
+            from: '"Verised" <verised.noreply@gmail.com>',
             to: email,
             subject: 'Verised - Код подтверждения',
-            text: `Ваш код подтверждения: ${code}\n\nКод действителен 5 минут.`,
+            text: `Ваш код подтверждения: ${code}\n\nКод действителен 5 минут.\n\nЕсли вы не запрашивали этот код, проигнорируйте письмо.`,
             html: `
-                <div style="background:#000;color:#fff;padding:40px;font-family:Arial,sans-serif;text-align:center;">
+                <div style="background:#000;color:#fff;padding:40px;font-family:Arial,sans-serif;text-align:center;max-width:600px;margin:0 auto;">
                     <h1 style="color:#fff;font-size:28px;margin-bottom:20px;">⚡ Verised</h1>
                     <p style="font-size:16px;color:#999;margin-bottom:30px;">Ваш код подтверждения:</p>
                     <div style="background:#1a1a1a;padding:20px;border-radius:12px;margin:20px 0;">
@@ -71,22 +56,20 @@ export default async function handler(req, res) {
             `
         });
 
-        console.log('✅ Email sent:', info.messageId);
-        console.log('📧 Preview URL:', nodemailer.getTestMessageUrl(info));
-        console.log('🔑 Code for', email, ':', code);
+        console.log('✅ Email sent to:', email);
+        console.log('🔑 Code:', code);
         
         return res.status(200).json({ 
             success: true,
-            previewUrl: nodemailer.getTestMessageUrl(info)
+            code: code // For testing
         });
     } catch (error) {
         console.error('❌ Email Error:', error.message);
         console.log('🔑 Code saved for', email, ':', code);
         
-        // Still return success so user can enter code
         return res.status(200).json({ 
             success: true,
-            code: code // For testing
+            code: code
         });
     }
 }
