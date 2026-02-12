@@ -351,6 +351,11 @@
                 if (data.success) {
                     closeEmailModal();
                     document.getElementById('codeModal').classList.add('active');
+                } else if (data.testCode) {
+                    // For testing: show code if email failed
+                    alert('Email не отправлен, но вот код для теста: ' + data.testCode);
+                    closeEmailModal();
+                    document.getElementById('codeModal').classList.add('active');
                 } else {
                     alert('Ошибка: ' + (data.error || 'Не удалось отправить код'));
                 }
