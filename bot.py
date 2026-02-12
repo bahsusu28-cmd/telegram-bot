@@ -259,14 +259,14 @@ def answer_callback(callback_id, text, show_alert=False):
     )
 
 # Установка menu button (кнопка снизу)
-def set_menu_button(chat_id):
+def set_menu_button(chat_id, user_id):
     requests.post(
         f'{API_URL}/setChatMenuButton',
         json={
             'chat_id': chat_id,
             'menu_button': {
                 'type': 'web_app',
-                'text': 'Открыть',
+                'text': t(user_id, 'menu_button'),
                 'web_app': {'url': WEBAPP_URL}
             }
         },
@@ -343,7 +343,7 @@ while True:
                         print(f"   ❌ Не подписан")
                     else:
                         # Устанавливаем menu button
-                        set_menu_button(chat_id)
+                        set_menu_button(chat_id, user_id)
                         # Отправляем главное меню с фото
                         send_photo(
                             chat_id,
@@ -375,7 +375,7 @@ while True:
                             timeout=10
                         )
                         # Устанавливаем menu button
-                        set_menu_button(chat_id)
+                        set_menu_button(chat_id, user_id)
                         send_photo(
                             chat_id,
                             MENU_PHOTO,
@@ -417,7 +417,7 @@ while True:
                         timeout=10
                     )
                     # Устанавливаем menu button
-                    set_menu_button(chat_id)
+                    set_menu_button(chat_id, user_id)
                     send_photo(
                         chat_id,
                         MENU_PHOTO,
@@ -435,7 +435,7 @@ while True:
                         timeout=10
                     )
                     # Устанавливаем menu button
-                    set_menu_button(chat_id)
+                    set_menu_button(chat_id, user_id)
                     send_photo(
                         chat_id,
                         MENU_PHOTO,

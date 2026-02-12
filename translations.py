@@ -4,6 +4,7 @@ TRANSLATIONS = {
     'en': {
         'welcome': '✅ Welcome to the main menu!',
         'subscribe_required': '👋 Hello! To use the bot, you need to subscribe to our channel.\n\nAfter subscribing, click the "Check subscription" button.',
+        'menu_button': 'Open',
         'open_app': '🚀 Open Application',
         'language': '🏴 Language',
         'settings': '⚙️ Settings',
@@ -29,6 +30,7 @@ TRANSLATIONS = {
     'ru': {
         'welcome': '✅ Добро пожаловать в главное меню!',
         'subscribe_required': '👋 Привет! Для использования бота необходимо подписаться на наш канал.\n\nПосле подписки нажмите кнопку "Проверить подписку".',
+        'menu_button': 'Открыть',
         'open_app': '🚀 Открыть приложение',
         'language': '🏴 Язык',
         'settings': '⚙️ Настройки',
@@ -54,6 +56,7 @@ TRANSLATIONS = {
     'de': {
         'welcome': '✅ Willkommen im Hauptmenü!',
         'subscribe_required': '👋 Hallo! Um den Bot zu nutzen, müssen Sie unseren Kanal abonnieren.\n\nKlicken Sie nach dem Abonnieren auf "Abonnement prüfen".',
+        'menu_button': 'Öffnen',
         'open_app': '🚀 Anwendung öffnen',
         'language': '🏴 Sprache',
         'settings': '⚙️ Einstellungen',
@@ -79,6 +82,7 @@ TRANSLATIONS = {
     'es': {
         'welcome': '✅ ¡Bienvenido al menú principal!',
         'subscribe_required': '👋 ¡Hola! Para usar el bot, debes suscribirte a nuestro canal.\n\nDespués de suscribirte, haz clic en "Verificar suscripción".',
+        'menu_button': 'Abrir',
         'open_app': '🚀 Abrir aplicación',
         'language': '🏴 Idioma',
         'settings': '⚙️ Configuración',
@@ -104,6 +108,7 @@ TRANSLATIONS = {
     'fr': {
         'welcome': '✅ Bienvenue dans le menu principal!',
         'subscribe_required': '👋 Bonjour! Pour utiliser le bot, vous devez vous abonner à notre chaîne.\n\nAprès l\'abonnement, cliquez sur "Vérifier l\'abonnement".',
+        'menu_button': 'Ouvrir',
         'open_app': '🚀 Ouvrir l\'application',
         'language': '🏴 Langue',
         'settings': '⚙️ Paramètres',
@@ -129,6 +134,7 @@ TRANSLATIONS = {
     'zh': {
         'welcome': '✅ 欢迎来到主菜单！',
         'subscribe_required': '👋 你好！要使用机器人，您需要订阅我们的频道。\n\n订阅后，点击"检查订阅"。',
+        'menu_button': '打开',
         'open_app': '🚀 打开应用',
         'language': '🏴 语言',
         'settings': '⚙️ 设置',
