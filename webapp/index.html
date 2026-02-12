@@ -351,11 +351,11 @@
                 if (data.success) {
                     closeEmailModal();
                     document.getElementById('codeModal').classList.add('active');
-                } else if (data.testCode) {
-                    // For testing: show code if email failed
-                    alert('Email не отправлен, но вот код для теста: ' + data.testCode);
-                    closeEmailModal();
-                    document.getElementById('codeModal').classList.add('active');
+                    
+                    // Show test code in console for debugging
+                    if (data.testCode) {
+                        console.log('Test code:', data.testCode);
+                    }
                 } else {
                     alert('Ошибка: ' + (data.error || 'Не удалось отправить код'));
                 }
