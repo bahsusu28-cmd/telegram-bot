@@ -1,11 +1,11 @@
 {
   "version": 2,
   "public": true,
-  "buildCommand": "echo 'Building v2.0'",
+  "outputDirectory": "webapp",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/webapp/index.html"
+      "destination": "/index.html"
     }
   ],
   "headers": [
