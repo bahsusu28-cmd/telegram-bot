@@ -350,12 +350,15 @@
                 
                 if (data.success) {
                     closeEmailModal();
-                    document.getElementById('codeModal').classList.add('active');
                     
-                    // Show test code in console for debugging
-                    if (data.testCode) {
-                        console.log('Test code:', data.testCode);
+                    // Show code in input placeholder for testing
+                    if (data.code) {
+                        const codeInput = document.getElementById('codeInput');
+                        codeInput.placeholder = 'Код: ' + data.code;
+                        console.log('🔑 Test code:', data.code);
                     }
+                    
+                    document.getElementById('codeModal').classList.add('active');
                 } else {
                     alert('Ошибка: ' + (data.error || 'Не удалось отправить код'));
                 }
