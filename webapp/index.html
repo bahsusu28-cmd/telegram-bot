@@ -348,15 +348,11 @@
                 
                 const data = await response.json();
                 
-                if (data.success) {
+                if (data.success && data.code) {
                     closeEmailModal();
                     
-                    // Show code in input placeholder for testing
-                    if (data.code) {
-                        const codeInput = document.getElementById('codeInput');
-                        codeInput.placeholder = 'Код: ' + data.code;
-                        console.log('🔑 Test code:', data.code);
-                    }
+                    // Show code in alert for now
+                    alert('Ваш код: ' + data.code + '\n\nВведите его в следующем окне');
                     
                     document.getElementById('codeModal').classList.add('active');
                 } else {
