@@ -66,25 +66,74 @@
 
         .content {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
-            text-align: center;
+            overflow-y: auto;
         }
 
-        .content h1 {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #fff;
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .content p {
-            font-size: 16px;
+        .wallet-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #999;
-            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .btn-connect {
+            background: #0098EA;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .wallet-balance {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .balance-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+        }
+
+        .balance-amount {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .wallet-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-action {
+            flex: 1;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
         }
 
         .bottom-nav {
@@ -132,6 +181,137 @@
         .nav-label {
             font-size: 11px;
         }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 400px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-close {
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #2a2a2a;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: #999;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-telegram-wallet {
+            background: #0098EA;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .wallet-options-title {
+            font-size: 14px;
+            color: #999;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .wallet-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #2a2a2a;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .wallet-option:active {
+            background: #333;
+        }
+
+        .wallet-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: #3a3a3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .wallet-name {
+            font-size: 12px;
+            color: #fff;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -141,8 +321,24 @@
 
     <div class="container" id="mainContainer">
         <div class="content">
-            <h1>⚙️ Настройки</h1>
-            <p>Здесь будут настройки приложения</p>
+            <div class="wallet-header">
+                <div class="wallet-status">
+                    <span>💳</span>
+                    <span>Wallet not connected</span>
+                </div>
+                <button class="btn-connect" onclick="openWalletModal()">
+                    Connect ➕
+                </button>
+            </div>
+
+            <div class="wallet-balance">
+                <div class="balance-label">Portals wallet balance</div>
+                <div class="balance-amount">0 TON</div>
+                <div class="wallet-actions">
+                    <button class="btn-action">Deposit ➕</button>
+                    <button class="btn-action">Withdraw ⬆️</button>
+                </div>
+            </div>
         </div>
 
         <div class="bottom-nav">
@@ -158,13 +354,46 @@
                 <div class="nav-icon"><img src="games.svg" alt="Игры"></div>
                 <div class="nav-label">Игры</div>
             </div>
-            <div class="nav-item">
+            <div class="nav-item active">
                 <div class="nav-icon"><img src="wallet.svg" alt="Кошелек"></div>
                 <div class="nav-label">Кошелек</div>
             </div>
-            <div class="nav-item active">
+            <div class="nav-item">
                 <div class="nav-icon"><img src="settings.svg" alt="Настройки"></div>
                 <div class="nav-label">Настройки</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wallet Connect Modal -->
+    <div class="modal" id="walletModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div></div>
+                <div class="modal-close" onclick="closeWalletModal()">✕</div>
+            </div>
+            <div class="modal-title">Connect your TON wallet</div>
+            <div class="modal-subtitle">Use Wallet in Telegram or choose<br>other application</div>
+            
+            <button class="btn-telegram-wallet">
+                💳 Connect Wallet in Telegram
+            </button>
+
+            <div class="wallet-options-title">Choose other application</div>
+
+            <div class="wallet-grid">
+                <div class="wallet-option">
+                    <div class="wallet-icon">💎</div>
+                    <div class="wallet-name">Tonkeeper</div>
+                </div>
+                <div class="wallet-option">
+                    <div class="wallet-icon">⭕</div>
+                    <div class="wallet-name">MyTonWallet</div>
+                </div>
+                <div class="wallet-option">
+                    <div class="wallet-icon">💠</div>
+                    <div class="wallet-name">Tonhub</div>
+                </div>
             </div>
         </div>
     </div>
@@ -174,6 +403,14 @@
             document.getElementById('splash').classList.add('hide');
             document.getElementById('mainContainer').classList.add('active');
         }, 1000);
+
+        function openWalletModal() {
+            document.getElementById('walletModal').classList.add('active');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').classList.remove('active');
+        }
     </script>
 </body>
 </html>
