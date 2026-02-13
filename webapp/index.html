@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Verised</title>
-    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <script src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -182,137 +182,6 @@
         .nav-label {
             font-size: 11px;
         }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 30px 20px;
-            width: 100%;
-            max-width: 400px;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .modal-close {
-            font-size: 28px;
-            cursor: pointer;
-            color: #666;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #2a2a2a;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .modal-subtitle {
-            font-size: 14px;
-            color: #999;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .btn-telegram-wallet {
-            background: #0098EA;
-            color: #fff;
-            border: none;
-            border-radius: 15px;
-            padding: 18px;
-            font-size: 16px;
-            font-weight: 600;
-            width: 100%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .wallet-options-title {
-            font-size: 14px;
-            color: #999;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .wallet-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .wallet-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: #2a2a2a;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .wallet-option:active {
-            background: #333;
-        }
-
-        .wallet-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            background: #3a3a3a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-        }
-
-        .wallet-name {
-            font-size: 12px;
-            color: #fff;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -325,16 +194,16 @@
             <div class="wallet-header">
                 <div class="wallet-status">
                     <span>💳</span>
-                    <span>Wallet not connected</span>
+                    <span id="walletStatus">Wallet not connected</span>
                 </div>
-                <button class="btn-connect" onclick="openWalletModal()">
+                <button class="btn-connect" id="connectBtn">
                     Connect ➕
                 </button>
             </div>
 
             <div class="wallet-balance">
                 <div class="balance-label">Verised wallet balance</div>
-                <div class="balance-amount">0 TON</div>
+                <div class="balance-amount" id="balanceAmount">0 TON</div>
                 <div class="wallet-actions">
                     <button class="btn-action" onclick="deposit()">Deposit ➕</button>
                     <button class="btn-action" onclick="withdraw()">Withdraw ⬆️</button>
@@ -366,77 +235,30 @@
         </div>
     </div>
 
-    <!-- Wallet Connect Modal -->
-    <div class="modal" id="walletModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div></div>
-                <div class="modal-close" onclick="closeWalletModal()">✕</div>
-            </div>
-            <div class="modal-title">Connect your TON wallet</div>
-            <div class="modal-subtitle">Use Wallet in Telegram or choose<br>other application</div>
-            
-            <button class="btn-telegram-wallet" onclick="connectTelegramWallet()">
-                💳 Connect Wallet in Telegram
-            </button>
-
-            <div class="wallet-options-title">Choose other application</div>
-
-            <div class="wallet-grid">
-                <div class="wallet-option" onclick="connectWallet('tonkeeper')">
-                    <div class="wallet-icon">💎</div>
-                    <div class="wallet-name">Tonkeeper</div>
-                </div>
-                <div class="wallet-option" onclick="connectWallet('mytonwallet')">
-                    <div class="wallet-icon">⭕</div>
-                    <div class="wallet-name">MyTonWallet</div>
-                </div>
-                <div class="wallet-option" onclick="connectWallet('tonhub')">
-                    <div class="wallet-icon">💠</div>
-                    <div class="wallet-name">Tonhub</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        let tonConnectUI;
+        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: 'https://telegram-bot-five-indol-50.vercel.app/tonconnect-manifest.json',
+            buttonRootId: null
+        });
+
         let userWallet = null;
-        let balance = 0;
 
-        // Initialize TON Connect
-        async function initTonConnect() {
-            tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-                manifestUrl: 'https://telegram-bot-five-indol-50.vercel.app/tonconnect-manifest.json',
-                buttonRootId: 'ton-connect-button'
-            });
-
-            tonConnectUI.onStatusChange(wallet => {
-                if (wallet) {
-                    userWallet = wallet;
-                    updateWalletUI(true);
-                    loadBalance();
-                } else {
-                    userWallet = null;
-                    updateWalletUI(false);
-                }
-            });
-
-            // Check if already connected
-            const currentWallet = tonConnectUI.wallet;
-            if (currentWallet) {
-                userWallet = currentWallet;
+        tonConnectUI.onStatusChange(wallet => {
+            if (wallet) {
+                userWallet = wallet;
                 updateWalletUI(true);
                 loadBalance();
+            } else {
+                userWallet = null;
+                updateWalletUI(false);
             }
-        }
+        });
 
         function updateWalletUI(connected) {
-            const statusEl = document.querySelector('.wallet-status span:last-child');
-            const connectBtn = document.querySelector('.btn-connect');
-            const balanceAmount = document.querySelector('.balance-amount');
+            const statusEl = document.getElementById('walletStatus');
+            const connectBtn = document.getElementById('connectBtn');
 
-            if (connected) {
+            if (connected && userWallet) {
                 const address = userWallet.account.address;
                 const shortAddress = address.slice(0, 4) + '...' + address.slice(-4);
                 statusEl.textContent = shortAddress;
@@ -445,8 +267,8 @@
             } else {
                 statusEl.textContent = 'Wallet not connected';
                 connectBtn.innerHTML = 'Connect ➕';
-                connectBtn.onclick = openWalletModal;
-                balanceAmount.textContent = '0 TON';
+                connectBtn.onclick = connectWallet;
+                document.getElementById('balanceAmount').textContent = '0 TON';
             }
         }
 
@@ -459,57 +281,28 @@
                 const data = await response.json();
                 
                 if (data.ok) {
-                    balance = parseInt(data.result) / 1000000000; // Convert from nanotons
-                    document.querySelector('.balance-amount').textContent = balance.toFixed(2) + ' TON';
+                    const balance = parseInt(data.result) / 1000000000;
+                    document.getElementById('balanceAmount').textContent = balance.toFixed(2) + ' TON';
                 }
             } catch (error) {
                 console.error('Error loading balance:', error);
             }
         }
 
+        async function connectWallet() {
+            await tonConnectUI.openModal();
+        }
+
         async function disconnectWallet() {
             await tonConnectUI.disconnect();
-            userWallet = null;
-            balance = 0;
-            updateWalletUI(false);
         }
 
-        setTimeout(() => {
-            document.getElementById('splash').classList.add('hide');
-            document.getElementById('mainContainer').classList.add('active');
-            initTonConnect();
-        }, 1000);
-
-        function openWalletModal() {
-            document.getElementById('walletModal').classList.add('active');
-        }
-
-        function closeWalletModal() {
-            document.getElementById('walletModal').classList.remove('active');
-        }
-
-        async function connectTelegramWallet() {
-            closeWalletModal();
-            await tonConnectUI.openModal();
-        }
-
-        async function connectWallet(walletName) {
-            closeWalletModal();
-            await tonConnectUI.openModal();
-        }
-
-        async function deposit() {
+        function deposit() {
             if (!userWallet) {
                 alert('Сначала подключите кошелек');
                 return;
             }
-
-            const amount = prompt('Введите сумму для пополнения (TON):');
-            if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-                return;
-            }
-
-            alert('Функция пополнения в разработке. Адрес для пополнения:\n' + userWallet.account.address);
+            alert('Адрес для пополнения:\n' + userWallet.account.address);
         }
 
         async function withdraw() {
@@ -520,11 +313,6 @@
 
             const amount = prompt('Введите сумму для вывода (TON):');
             if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-                return;
-            }
-
-            if (parseFloat(amount) > balance) {
-                alert('Недостаточно средств');
                 return;
             }
 
@@ -544,9 +332,20 @@
                 setTimeout(loadBalance, 3000);
             } catch (error) {
                 console.error('Transaction error:', error);
-                alert('Ошибка транзакции: ' + error.message);
+                alert('Ошибка: ' + error.message);
             }
         }
+
+        setTimeout(() => {
+            document.getElementById('splash').classList.add('hide');
+            document.getElementById('mainContainer').classList.add('active');
+            
+            if (tonConnectUI.wallet) {
+                userWallet = tonConnectUI.wallet;
+                updateWalletUI(true);
+                loadBalance();
+            }
+        }, 1000);
     </script>
 </body>
 </html>
